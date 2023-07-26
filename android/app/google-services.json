@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619227189417",
+    "project_id": "learner-app-d400",
+    "storage_bucket": "learner-app-d400.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619227189417:android:1d2d0b37f53d297aca59b8",
+        "android_client_info": {
+          "package_name": "com.example.learner_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619227189417-7tdcv2jp7mc0nltp98bdbqen6idrorc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1eFQhd7nXFBlSuphC_K3G0vcn_Wigm7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619227189417-7tdcv2jp7mc0nltp98bdbqen6idrorc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
