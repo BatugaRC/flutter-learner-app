@@ -1,21 +1,31 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: no_logic_in_create_state
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:learner_app/services/database.dart';
 
-class AddCourse extends StatefulWidget {
-  const AddCourse({super.key});
+import '../../services/database.dart';
+
+class UpdateForm extends StatefulWidget {
+  final String docId;
+  final String creator;
+
+  const UpdateForm({Key? key, required this.docId, required this.creator}) : super(key: key);
 
   @override
-  State<AddCourse> createState() => _AddCourseState();
+  State<UpdateForm> createState() => _UpdateFormState(docId, creator);
 }
 
-class _AddCourseState extends State<AddCourse> {
+
+class _UpdateFormState extends State<UpdateForm> {
   final DatabaseService db = DatabaseService();
   late final TextEditingController _title;
   late final TextEditingController _length;
+  final String docId;
+  final String creator;
+
+  _UpdateFormState(this.docId, this.creator);
+
+  
 
   @override
   void initState() {
@@ -30,7 +40,6 @@ class _AddCourseState extends State<AddCourse> {
     _length.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -38,46 +47,36 @@ class _AddCourseState extends State<AddCourse> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Create your own courses",
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(
-              height: 90.0,
-            ),
             TextFormField(
               controller: _title,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
               ),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.grey,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.blue,
                   ),
                 ),
-                labelText: 'Course name',
-                labelStyle: TextStyle(
+                labelText: 'New Course name',
+                labelStyle: const TextStyle(
                   color: Colors.grey,
                 ),
-                hintText: 'Enter the course name',
-                hintStyle: TextStyle(
+                hintText: 'Enter the new course name',
+                hintStyle: const TextStyle(
                   color: Colors.grey,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25.0,
             ),
             TextFormField(
@@ -86,50 +85,50 @@ class _AddCourseState extends State<AddCourse> {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.digitsOnly
               ],
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 16.0,
               ),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.grey,
                   ),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.blue,
                   ),
                 ),
-                labelText: 'Length',
-                labelStyle: TextStyle(
+                labelText: 'New Length',
+                labelStyle: const TextStyle(
                   color: Colors.grey,
                 ),
-                hintText: 'Enter the course length',
-                hintStyle: TextStyle(
+                hintText: 'Enter the new course length',
+                hintStyle: const TextStyle(
                   color: Colors.grey,
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35.0,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black87,
-                fixedSize: const Size(130, 55),
+                backgroundColor: const Color.fromARGB(255, 218, 203, 62),
+                fixedSize: const Size(120, 50),
               ),
               onPressed: () {
                 final title = _title.text;
                 final length = _length.text;
-                db.addCourse(title, int.parse(length), FirebaseAuth.instance.currentUser!.email);
+                db.updateCourse(docId, title, int.parse(length));
               },
-              child: Text(
-                "Create",
+              child: const Text(
+                "Update",
                 style: TextStyle(
-                  fontSize: 25.0,
+                  fontSize: 23.0,
                 ),
               ),
             ),

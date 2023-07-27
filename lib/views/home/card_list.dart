@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:learner_app/services/database.dart';
@@ -8,6 +9,7 @@ import 'course_card.dart';
 class FirestoreListView extends StatelessWidget {
   FirestoreListView({super.key});
   final DatabaseService db = DatabaseService();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,10 @@ class FirestoreListView extends StatelessWidget {
           return FirestoreData(
             title: doc.get('title') ?? '',
             length: doc.get('length') ?? '',
+            docId: doc.id,
+            creator: user?.email,
           );
         }).toList();
-        
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -38,12 +41,16 @@ class FirestoreListView extends StatelessWidget {
             FirestoreData cardData = data[index];
             return Padding(
               padding: const EdgeInsets.all(10.0),
-              child: CourseCard(title: cardData.title, length: cardData.length,),
+              child: CourseCard(
+                title: cardData.title,
+                length: cardData.length,
+                creator: user!.email,
+                docId: data[index].docId,
+              ),
             );
           },
         );
       },
     );
   }
-
 }
