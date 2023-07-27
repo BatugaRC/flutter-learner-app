@@ -25,18 +25,20 @@ class FirestoreListView extends StatelessWidget {
             length: doc.get('length') ?? '',
           );
         }).toList();
+        
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 0.0,
-            mainAxisSpacing: 0.0,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
           ),
           itemCount: data.length,
           itemBuilder: (context, index) {
+            FirestoreData cardData = data[index];
             return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildCard(data, index),
+              padding: const EdgeInsets.all(10.0),
+              child: CourseCard(title: cardData.title, length: cardData.length,),
             );
           },
         );
@@ -44,11 +46,4 @@ class FirestoreListView extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(List<FirestoreData> data, int index) {
-    final FirestoreData cardData = data[index];
-    return CourseCard(
-      title: cardData.title,
-      length: cardData.length,
-    );
-  }
 }

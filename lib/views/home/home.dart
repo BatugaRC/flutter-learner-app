@@ -1,6 +1,7 @@
-// ignore_for_file: unused_field, prefer_final_fields, prefer_const_constructors, unused_element
+// ignore_for_file: unused_field, prefer_final_fields, prefer_const_constructors, unused_element, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:learner_app/services/auth_service.dart';
 import 'package:learner_app/views/home/add_course.dart';
 import 'package:learner_app/views/home/card_list.dart';
 
@@ -25,11 +26,15 @@ class _HomeState extends State<Home> {
     );
   }
 
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 252, 250, 250),
       body: _widgets.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Color.fromARGB(189, 133, 133, 133),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
@@ -44,11 +49,31 @@ class _HomeState extends State<Home> {
             label: "Create Course",
           ),
         ],
+        selectedItemColor: Colors.black87,
+        unselectedItemColor: Color.fromARGB(226, 255, 255, 255),
         currentIndex: _selectedIndex,
         onTap: (value) {
           _onItemTapped(value);
         },
       ),
+      floatingActionButton:   FloatingActionButton(
+        backgroundColor: Colors.black87,
+            child: const Icon(
+              Icons.logout,
+              color: Colors.white,
+            ),
+            onPressed: () async {
+              String result = await _auth.signOut();
+              if (result == "0") {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  "/welcome/",
+                  (route) => false,
+                );
+              } else {
+                print(result);
+              }
+            },
+          ),
     );
   }
 }

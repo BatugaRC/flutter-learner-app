@@ -12,10 +12,8 @@ class AddCourse extends StatefulWidget {
 }
 
 class _AddCourseState extends State<AddCourse> {
-
-
   final DatabaseService db = DatabaseService();
-  late final TextEditingController _title; 
+  late final TextEditingController _title;
   late final TextEditingController _length;
 
   @override
@@ -25,7 +23,7 @@ class _AddCourseState extends State<AddCourse> {
     super.initState();
   }
 
-  @override 
+  @override
   void dispose() {
     _title.dispose();
     _length.dispose();
@@ -118,12 +116,21 @@ class _AddCourseState extends State<AddCourse> {
               height: 35.0,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black87,
+                fixedSize: const Size(130, 55),
+              ),
               onPressed: () {
                 final title = _title.text;
                 final length = _length.text;
                 db.addCourse(title, int.parse(length));
               },
-              child: Text("Create"),
+              child: Text(
+                "Create",
+                style: TextStyle(
+                  fontSize: 25.0,
+                ),
+              ),
             ),
           ],
         ),

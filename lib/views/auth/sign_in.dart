@@ -27,6 +27,7 @@ class _SignInState extends State<SignIn> {
     _password.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,20 +40,76 @@ class _SignInState extends State<SignIn> {
                 controller: _email,
                 enableSuggestions: false,
                 autocorrect: false,
-                decoration: const InputDecoration(
-                  hintText: "Email",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
                 ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  labelText: 'Email',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Enter your email adress',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 30.0,
               ),
               TextField(
                 controller: _password,
                 enableSuggestions: false,
                 autocorrect: false,
                 obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: "Password",
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  labelText: 'Password',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Enter the your password',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
                 ),
               ),
+              const SizedBox(
+                height: 50.0,
+              ),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black87,
+                  fixedSize: const Size(130, 55),
+                ),
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
@@ -66,11 +123,27 @@ class _SignInState extends State<SignIn> {
                     print(result);
                   }
                 },
-                child: const Text("Sign In"),
+                child: const Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontSize: 25.0,
+                  ),
+                ),
               ),
             ],
           ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            "/welcome/",
+            (route) => false,
+          );
+        },
+        child: Icon(Icons.arrow_back),
+        backgroundColor: Colors.black87,
       ),
     );
   }
