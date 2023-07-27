@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/auth_service.dart';
+import 'package:learner_app/utilities/show_error_dialog.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -121,7 +122,7 @@ class _SignUpState extends State<SignUp> {
                       (route) => false,
                     );
                   } else {
-                    print(result);
+                    showErrorDialog(context, result);
                   }
                 },
                 child: const Text(

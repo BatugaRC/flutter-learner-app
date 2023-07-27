@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import '../../services/auth_service.dart';
+import '../../utilities/show_error_dialog.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -120,7 +123,7 @@ class _SignInState extends State<SignIn> {
                       (route) => false,
                     );
                   } else {
-                    print(result);
+                    showErrorDialog(context, result);
                   }
                 },
                 child: const Text(
