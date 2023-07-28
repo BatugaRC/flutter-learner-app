@@ -27,7 +27,7 @@ class EnrolledCourses extends StatelessWidget {
           return const Center(child: Text('User data not found'));
         }
 
-        // User data is available, extract the courses field as a list
+
         Map<String, dynamic> userData =
             snapshot.data!.data() as Map<String, dynamic>;
         List<dynamic> enrolledCourses = userData['courses'] ?? [];
@@ -46,7 +46,7 @@ class EnrolledCourses extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             var currentCourseId = enrolledCourses[index];
             if (currentCourseId == null || currentCourseId == "") {
-              return const SizedBox.shrink(); // Skip this item to avoid errors
+              return const SizedBox.shrink(); 
             }
             return FutureBuilder<DocumentSnapshot?>(
               future: db.getCourse(currentCourseId),
