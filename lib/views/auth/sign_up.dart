@@ -14,12 +14,14 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  late final TextEditingController _username;
   final AuthService _auth = AuthService();
 
   @override
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    _username = TextEditingController();
     super.initState();
   }
 
@@ -27,6 +29,7 @@ class _SignUpState extends State<SignUp> {
   void dispose() {
     _email.dispose();
     _password.dispose();
+    _username.dispose();
     super.dispose();
   }
 
@@ -38,6 +41,40 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              TextField(
+                controller: _username,
+                enableSuggestions: false,
+                autocorrect: false,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 16.0,
+                ),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(
+                      color: Colors.blue,
+                    ),
+                  ),
+                  labelText: 'Username',
+                  labelStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                  hintText: 'Create username',
+                  hintStyle: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30.0,
+              ),
               TextField(
                 controller: _email,
                 enableSuggestions: false,
@@ -69,7 +106,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30.0,
               ),
               TextField(
@@ -115,7 +152,8 @@ class _SignUpState extends State<SignUp> {
                 onPressed: () async {
                   final email = _email.text;
                   final password = _password.text;
-                  String result = await _auth.signUp(email, password);
+                  final username = _username.text;
+                  String result = await _auth.signUp(email, password, username);
                   if (result == "0") {
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       "/home/",
@@ -144,7 +182,7 @@ class _SignUpState extends State<SignUp> {
             (route) => false,
           );
         },
-        child: Icon(Icons.arrow_back),
+        child: const Icon(Icons.arrow_back),
         backgroundColor: Colors.black87,
       ),
     );

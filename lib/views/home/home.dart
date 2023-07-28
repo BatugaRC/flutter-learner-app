@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:learner_app/services/auth_service.dart';
 import 'package:learner_app/views/home/add_course.dart';
 import 'package:learner_app/views/home/card_list.dart';
+import 'package:learner_app/views/home/enrolled_courses.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,6 +18,7 @@ class _HomeState extends State<Home> {
   static List<Widget> _widgets = <Widget>[
     FirestoreListView(),
     AddCourse(),
+    EnrolledCourses(),
   ];
   void _onItemTapped(int index) {
     setState(
@@ -48,6 +50,10 @@ class _HomeState extends State<Home> {
             ),
             label: "Create Course",
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.collections_bookmark_rounded),
+            label: "Enrolled Courses",
+          ),
         ],
         selectedItemColor: Colors.black87,
         unselectedItemColor: Color.fromARGB(226, 255, 255, 255),
@@ -56,24 +62,24 @@ class _HomeState extends State<Home> {
           _onItemTapped(value);
         },
       ),
-      floatingActionButton:   FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black87,
-            child: const Icon(
-              Icons.logout,
-              color: Colors.white,
-            ),
-            onPressed: () async {
-              String result = await _auth.signOut();
-              if (result == "0") {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  "/welcome/",
-                  (route) => false,
-                );
-              } else {
-                print(result);
-              }
-            },
-          ),
+        child: const Icon(
+          Icons.logout,
+          color: Colors.white,
+        ),
+        onPressed: () async {
+          String result = await _auth.signOut();
+          if (result == "0") {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              "/welcome/",
+              (route) => false,
+            );
+          } else {
+            print(result);
+          }
+        },
+      ),
     );
   }
 }
