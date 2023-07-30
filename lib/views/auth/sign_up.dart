@@ -182,8 +182,8 @@ class _SignUpState extends State<SignUp> {
             (route) => false,
           );
         },
-        child: const Icon(Icons.arrow_back),
         backgroundColor: Colors.black87,
+        child: const Icon(Icons.arrow_back),
       ),
     );
   }

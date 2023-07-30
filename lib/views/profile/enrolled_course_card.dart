@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/views/home/card_view.dart';
+import 'package:learner_app/views/profile/enrolled_course_view.dart';
 
-class CourseCard extends StatelessWidget {
+class EnrolledCourseCard extends StatelessWidget {
   final String title;
   final int length;
-  final String? creator;
+  final String creator;
   final String docId;
 
-  const CourseCard(
+  const EnrolledCourseCard(
       {super.key,
       required this.title,
       required this.length,
@@ -20,7 +20,7 @@ class CourseCard extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CardView(
+          builder: (context) => EnrolledCourseView(
             creator: creator,
             docId: docId,
             length: length,

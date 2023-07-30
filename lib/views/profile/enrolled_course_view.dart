@@ -3,15 +3,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
-import 'package:learner_app/utilities/creator_checker.dart';
-import 'package:learner_app/utilities/show_error_dialog.dart';
 
-class CardView extends StatelessWidget {
+
+class EnrolledCourseView extends StatelessWidget {
   final String title;
   final int length;
-  final String? creator;
+  final String creator;
   final String docId;
-  const CardView(
+  const EnrolledCourseView(
       {super.key,
       required this.title,
       required this.length,
@@ -21,7 +20,7 @@ class CardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DatabaseService db = DatabaseService();
-    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final String uid = FirebaseAuth.instance.currentUser!.uid;
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -33,25 +32,18 @@ class CardView extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () async {
-                bool isCreator = checkCreator(creator);
-                if (isCreator) {
-                  showErrorDialog(context, "You can't enroll your own course");
-                } else {
-                 bool result = await db.enroll(docId, uid);
-                 if (!result) {
-                  showErrorDialog(context, "You are already enrolled in this course");
-                 }
-                }
+                await db.unenroll(uid, docId);
               },
               style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple, fixedSize: const Size(150, 75)),
+                  backgroundColor: Colors.red, fixedSize: const Size(150, 75)),
               child: const Text(
-                "Enroll",
+                "Discard",
                 style: TextStyle(
                   fontSize: 27,
                 ),
               ),
             ),
+            
           ],
         ),
       ),
