@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
 import 'package:learner_app/views/profile/student_list.dart';
-import '../../utilities/show_bottom_sheet.dart';
+import '../home/update_form.dart';
 
 class CreatedCourseView extends StatelessWidget {
   final String title;
@@ -31,7 +31,21 @@ class CreatedCourseView extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                showSettingsPanel(context, docId, creator);
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 60.0,
+                      ),
+                      child: UpdateForm(
+                        docId: docId,
+                        creator: creator,
+                      ),
+                    );
+                  },
+                );
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 218, 203, 62),
@@ -71,7 +85,10 @@ class CreatedCourseView extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => StudentList(docId: docId, title: title,),
+                    builder: (context) => StudentList(
+                      docId: docId,
+                      title: title,
+                    ),
                   ),
                 );
               },
