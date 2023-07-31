@@ -23,6 +23,7 @@ class DatabaseService {
       "createdCourses": FieldValue.arrayUnion([docId])
     });
   }
+  
   Future<DocumentSnapshot?> getCourse(String uid) {
     return courses.doc(uid).get();
   }
@@ -59,6 +60,7 @@ class DatabaseService {
       },
     );
   }
+
   Future<void> createUser(String uid, String email, String username) async {
     await users.doc(uid).set({
       "username": username,
@@ -67,6 +69,7 @@ class DatabaseService {
       "createdCourses": [],
   });
   }
+
   Future<bool> enroll(String courseId, String? uid) async {
   
     DocumentSnapshot userSnapshot = await users.doc(uid).get();
@@ -85,6 +88,7 @@ class DatabaseService {
       return true;
     } 
   }
+
   Stream<DocumentSnapshot> getUserData (String? uid) {
     return users.doc(uid).snapshots();
   }
@@ -96,10 +100,14 @@ class DatabaseService {
     });
 
 }
+
   Future<void> unenroll (String? uid, String courseId) async {
     DocumentReference user = users.doc(uid);
       await user.update({
       "enrolledCourses": FieldValue.arrayRemove([courseId])
+    });
+    await courses.doc(courseId).update({
+      "students": FieldValue.arrayRemove([uid])
     });
   }
   Future<String> getCreatorName (String? creatorId) async {
