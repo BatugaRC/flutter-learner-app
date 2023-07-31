@@ -8,13 +8,15 @@ class DatabaseService {
       FirebaseFirestore.instance.collection("courses");
   CollectionReference users = FirebaseFirestore.instance.collection("users");
   String? uid = FirebaseAuth.instance.currentUser?.uid;
+
+
   Stream<QuerySnapshot> getCourses() {
     return courses.snapshots();
   }
 
   Future<void> addCourse(String title, int length, String? creator) async {
     DocumentReference docRef = await courses.add(
-      {"title": title, "length": length, "creator": creator},
+      {"title": title, "length": length, "creator": creator, "students": []},
     );
     String docId = docRef.id;
     users.doc(uid).update({
@@ -68,15 +70,18 @@ class DatabaseService {
   Future<bool> enroll(String courseId, String? uid) async {
   
     DocumentSnapshot userSnapshot = await users.doc(uid).get();
+    DocumentReference courseRef = courses.doc(courseId);
     Map<String, dynamic>? userData = userSnapshot.data() as Map<String, dynamic>?;
-    List<dynamic> courses = userData?['enrolledCourses'] ?? [];
-    if (courses.contains(courseId)) {
+    List<dynamic> enrolledCourses = userData?['enrolledCourses'] ?? [];
+    if (enrolledCourses.contains(courseId)) {
       return false;
     } else {
     await users.doc(uid).update({
       "enrolledCourses": FieldValue.arrayUnion([courseId])
-    
       });
+    await courseRef.update({
+      "students": FieldValue.arrayUnion([uid])
+    });
       return true;
     } 
   }
@@ -96,5 +101,16 @@ class DatabaseService {
       await user.update({
       "enrolledCourses": FieldValue.arrayRemove([courseId])
     });
+  }
+  Future<String> getCreatorName (String? creatorId) async {
+      DocumentSnapshot docSnapshot = await users.doc(creatorId).get();
+      final String creatorName = docSnapshot.get("username");
+      return creatorName;
+    }
+  Stream<DocumentSnapshot> getCourseData (String? courseId) {
+    return courses.doc(courseId).snapshots();
+  }
+  Future<DocumentSnapshot> getUser (String uid) {
+    return users.doc(uid).get();
   }
 }

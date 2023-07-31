@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-
 import '../../services/database.dart';
 import 'created_course_card.dart';
 
@@ -14,13 +13,31 @@ class CreatedCourses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DatabaseService db = DatabaseService();
+    if (createdCourses!.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Created Courses",
+          ),
+          backgroundColor: Colors.black87,
+        ),
+        body: Center(
+          child: Text(
+            "You have not created any courses.",
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Created Courses",
         ),
         backgroundColor: Colors.black87,
-
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

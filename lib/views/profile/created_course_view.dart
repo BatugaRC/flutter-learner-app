@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
+import 'package:learner_app/views/profile/student_list.dart';
 import '../../utilities/show_bottom_sheet.dart';
 
 class CreatedCourseView extends StatelessWidget {
@@ -30,8 +31,7 @@ class CreatedCourseView extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-               
-                  showSettingsPanel(context, docId, creator);
+                showSettingsPanel(context, docId, creator);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color.fromARGB(255, 218, 203, 62),
@@ -66,6 +66,18 @@ class CreatedCourseView extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => StudentList(docId: docId, title: title,),
+                  ),
+                );
+              },
+              style: TextButton.styleFrom(foregroundColor: Colors.black87),
+              child: const Text("See the students of this course"),
+            )
           ],
         ),
       ),

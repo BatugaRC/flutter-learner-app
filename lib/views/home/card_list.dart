@@ -26,10 +26,20 @@ class FirestoreListView extends StatelessWidget {
             title: doc.get('title') ?? '',
             length: doc.get('length') ?? '',
             docId: doc.id,
-            creator: user?.email,
+            creator: doc.get("creator") ?? '',
           );
         }).toList();
-
+        if (data.length == 0) {
+          return const Center(
+            child: Text(
+              "There are no any courses, yet.",
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          );
+        }
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -44,7 +54,7 @@ class FirestoreListView extends StatelessWidget {
               child: CourseCard(
                 title: cardData.title,
                 length: cardData.length,
-                creator: user!.email,
+                creator: cardData.creator,
                 docId: data[index].docId,
               ),
             );

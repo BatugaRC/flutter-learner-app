@@ -65,7 +65,7 @@ class ProfileView extends StatelessWidget {
                 subtitle: Text(email),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
                 child: Row(
                   children: [
                     ElevatedButton(
@@ -83,7 +83,7 @@ class ProfileView extends StatelessWidget {
                         backgroundColor: Colors.black87,
                         fixedSize: Size(
                           150,
-                          45,
+                          50,
                         ),
                       ),
                       child: Text("Enrolled Courses"),
@@ -106,7 +106,7 @@ class ProfileView extends StatelessWidget {
                         backgroundColor: Colors.black87,
                         fixedSize: Size(
                           150,
-                          45,
+                          50,
                         ),
                       ),
                       child: Text(

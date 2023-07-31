@@ -22,39 +22,92 @@ class CardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final DatabaseService db = DatabaseService();
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: Colors.black87,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () async {
-                bool isCreator = checkCreator(creator);
-                if (isCreator) {
-                  showErrorDialog(context, "You can't enroll your own course");
-                } else {
-                 bool result = await db.enroll(docId, uid);
-                 if (!result) {
-                  showErrorDialog(context, "You are already enrolled in this course");
-                 }
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple, fixedSize: const Size(150, 75)),
-              child: const Text(
-                "Enroll",
-                style: TextStyle(
-                  fontSize: 27,
-                ),
+
+    return FutureBuilder<String>(
+      future: db.getCreatorName(creator),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+              backgroundColor: Colors.black87,
+            ),
+            body: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+              backgroundColor: Colors.black87,
+            ),
+            body: const Center(
+              child: Text("Error fetching creator name"),
+            ),
+          );
+        } else {
+          final creatorName = snapshot.data;
+
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+              backgroundColor: Colors.black87,
+            ),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      const Text(
+                        "This course is created by",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      Text(
+                        creatorName!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      bool isCreator = checkCreator(creator);
+                      if (isCreator) {
+                        showErrorDialog(
+                            context, "You can't enroll your own course");
+                      } else {
+                        bool result = await db.enroll(docId, uid);
+                        if (!result) {
+                          showErrorDialog(context,
+                              "You are already enrolled in this course");
+                        }
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurple,
+                      fixedSize: const Size(150, 75),
+                    ),
+                    child: const Text(
+                      "Enroll",
+                      style: TextStyle(
+                        fontSize: 27,
+                      ),
+                    ),
+                  ),
+                 
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
+      },
     );
   }
 }

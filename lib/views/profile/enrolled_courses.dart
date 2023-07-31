@@ -13,13 +13,31 @@ class EnrolledCourses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DatabaseService db = DatabaseService();
+    if (enrolledCourses!.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Enrolled Courses",
+          ),
+          backgroundColor: Colors.black87,
+        ),
+        body: Center(
+          child: Text(
+            "You have not enrolled in any courses.",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Enrolled Courses",
         ),
         backgroundColor: Colors.black87,
-
       ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

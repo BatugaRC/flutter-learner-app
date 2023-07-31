@@ -124,7 +124,7 @@ class _AddCourseState extends State<AddCourse> {
               onPressed: () {
                 final title = _title.text;
                 final length = _length.text;
-                db.addCourse(title, int.parse(length), FirebaseAuth.instance.currentUser!.email);
+                db.addCourse(title, int.parse(length), FirebaseAuth.instance.currentUser!.uid);
               },
               child: Text(
                 "Create",
