@@ -3,7 +3,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
+import 'package:learner_app/views/comments/comment_field.dart';
 
+import '../../comments/comments_view.dart';
 
 class EnrolledCourseView extends StatelessWidget {
   final String title;
@@ -30,6 +32,9 @@ class EnrolledCourseView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(
+              height: 100,
+            ),
             ElevatedButton(
               onPressed: () async {
                 await db.unenroll(uid, docId);
@@ -43,7 +48,29 @@ class EnrolledCourseView extends StatelessWidget {
                 ),
               ),
             ),
-            
+            const SizedBox(
+              height: 70,
+            ),
+            CommentField(docId: docId),
+            const SizedBox(
+              height: 60,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return CommentsView(title: title, courseId: docId);
+                    },
+                  ),
+                );
+              },
+              child: const Text(
+                "See the comments for this course",
+                style: TextStyle(color: Colors.black87, fontSize: 15),
+              ),
+            ),
           ],
         ),
       ),

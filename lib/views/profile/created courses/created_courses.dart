@@ -2,28 +2,28 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:learner_app/views/profile/enrolled_course_card.dart';
 
-import '../../services/database.dart';
+import '../../../services/database.dart';
+import 'created_course_card.dart';
 
-class EnrolledCourses extends StatelessWidget {
-  final List<dynamic>? enrolledCourses;
-  const EnrolledCourses({super.key, required this.enrolledCourses});
+class CreatedCourses extends StatelessWidget {
+  final List<dynamic>? createdCourses;
+  const CreatedCourses({super.key, required this.createdCourses});
 
   @override
   Widget build(BuildContext context) {
     DatabaseService db = DatabaseService();
-    if (enrolledCourses!.isEmpty) {
+    if (createdCourses!.isEmpty) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Enrolled Courses",
+            "Created Courses",
           ),
           backgroundColor: Colors.black87,
         ),
         body: Center(
           child: Text(
-            "You have not enrolled in any courses.",
+            "You have not created any courses.",
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -35,7 +35,7 @@ class EnrolledCourses extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Enrolled Courses",
+          "Created Courses",
         ),
         backgroundColor: Colors.black87,
       ),
@@ -45,9 +45,9 @@ class EnrolledCourses extends StatelessWidget {
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
         ),
-        itemCount: enrolledCourses?.length,
+        itemCount: createdCourses?.length,
         itemBuilder: (BuildContext context, int index) {
-          var currentCourseId = enrolledCourses?[index];
+          var currentCourseId = createdCourses?[index];
           if (currentCourseId == null || currentCourseId == "") {
             return const SizedBox.shrink();
           }
@@ -72,7 +72,7 @@ class EnrolledCourses extends StatelessWidget {
 
               return Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: EnrolledCourseCard(
+                child: CreatedCourseCard(
                   title: title,
                   creator: creator,
                   docId: currentCourseId,

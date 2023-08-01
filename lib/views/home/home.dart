@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/auth_service.dart';
+import 'package:learner_app/utilities/show_error_dialog.dart';
 import 'package:learner_app/views/home/add_course.dart';
 import 'package:learner_app/views/home/card_list.dart';
 import 'package:learner_app/views/profile/profile_view.dart';
@@ -76,7 +77,7 @@ class _HomeState extends State<Home> {
               (route) => false,
             );
           } else {
-            print(result);
+            showErrorDialog(context, result);
           }
         },
       ),

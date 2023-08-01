@@ -3,16 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../services/database.dart';
+import '../../../services/database.dart';
 
 class UpdateForm extends StatefulWidget {
   final String docId;
   final String creator;
+  final String name;
+  final int length;
 
-  const UpdateForm({Key? key, required this.docId, required this.creator}) : super(key: key);
+  const UpdateForm({Key? key, required this.docId, required this.creator, required this.name, required this.length}) : super(key: key);
 
   @override
-  State<UpdateForm> createState() => _UpdateFormState(docId, creator);
+  State<UpdateForm> createState() => _UpdateFormState(docId, creator, name, length);
 }
 
 
@@ -22,15 +24,18 @@ class _UpdateFormState extends State<UpdateForm> {
   late final TextEditingController _length;
   final String docId;
   final String creator;
+  final String name;
+  int length;
 
-  _UpdateFormState(this.docId, this.creator);
+  _UpdateFormState(this.docId, this.creator, this.name, this.length);
 
-  
 
   @override
   void initState() {
     _title = TextEditingController();
     _length = TextEditingController();
+    _title.text = name;
+    _length.text = length.toString();
     super.initState();
   }
 

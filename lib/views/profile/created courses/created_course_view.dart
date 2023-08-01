@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
 import 'package:learner_app/views/profile/student_list.dart';
-import '../home/update_form.dart';
+import 'update_form.dart';
 
 class CreatedCourseView extends StatelessWidget {
   final String title;
@@ -42,6 +42,8 @@ class CreatedCourseView extends StatelessWidget {
                       child: UpdateForm(
                         docId: docId,
                         creator: creator,
+                        name: title,
+                        length: length,
                       ),
                     );
                   },

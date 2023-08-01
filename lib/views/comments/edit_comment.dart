@@ -1,40 +1,41 @@
 // ignore_for_file: prefer_const_constructors, no_logic_in_create_state
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
 
-class ChangeUsernameForm extends StatefulWidget {
-  final String username;
-  const ChangeUsernameForm({super.key, required this.username});
+class EditCommentForm extends StatefulWidget {
+  final String commentId;
+  final String comment;
+  const EditCommentForm({super.key, required this.commentId, required this.comment});
 
   @override
-  State<ChangeUsernameForm> createState() => _ChangeUsernameFormState(username);
+  State<EditCommentForm> createState() => _EditCommentFormState(commentId, comment);
 }
 
-class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
-  final String oldUsername;
-  late final TextEditingController _username;
+class _EditCommentFormState extends State<EditCommentForm> {
+  final String commentId;
+  final String comment;
+  late final TextEditingController _comment;
 
-  _ChangeUsernameFormState(this.oldUsername);
+  _EditCommentFormState(this.commentId, this.comment);
 
   @override
   void initState() {
-    _username = TextEditingController();
-    _username.text = oldUsername;
+    _comment = TextEditingController();
+    _comment.text = comment;
     super.initState();
   }
 
   @override
   void dispose() {
-    _username.dispose();
+    _comment.dispose();
     super.dispose();
   }
+   
 
   @override
   Widget build(BuildContext context) {
     DatabaseService db = DatabaseService();
-    String uid = FirebaseAuth.instance.currentUser!.uid;
     return Container(
       padding: const EdgeInsets.symmetric(
           vertical: 60.0,
@@ -44,7 +45,8 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
         child: Column(
           children: [
             TextField(
-              controller: _username,
+              controller: _comment,
+              
               enableSuggestions: false,
               autocorrect: false,
               style: const TextStyle(
@@ -64,11 +66,11 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
                     color: Colors.blue,
                   ),
                 ),
-                labelText: 'New Username',
+                labelText: 'Comment',
                 labelStyle: const TextStyle(
                   color: Colors.grey,
                 ),
-                hintText: 'Enter your new username',
+                hintText: 'Edit your comment',
                 hintStyle: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -79,15 +81,15 @@ class _ChangeUsernameFormState extends State<ChangeUsernameForm> {
             ),
             ElevatedButton(
               onPressed: () {
-                String username = _username.text;
-                db.changeUsername(username, uid);
+                String comment = _comment.text;
+                db.editComment(commentId, comment);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 218, 203, 62),
+                backgroundColor: Colors.cyan,
                 fixedSize: Size(130, 55)
               ),
               child: Text(
-                "Change",
+                "Edit",
                 style: TextStyle(
                   fontSize: 25
                 ),

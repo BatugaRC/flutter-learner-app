@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/views/profile/created_course_view.dart';
+import 'package:learner_app/views/profile/created%20courses/created_course_view.dart';
 
 class CreatedCourseCard extends StatelessWidget {
   final String title;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/views/profile/enrolled_course_view.dart';
+import 'package:learner_app/views/profile/enrolled%20courses/enrolled_course_view.dart';
 
 class EnrolledCourseCard extends StatelessWidget {
   final String title;

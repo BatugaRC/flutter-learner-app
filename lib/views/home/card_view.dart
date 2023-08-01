@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
 import 'package:learner_app/utilities/creator_checker.dart';
 import 'package:learner_app/utilities/show_error_dialog.dart';
+import 'package:learner_app/views/comments/comments_view.dart';
 
 class CardView extends StatelessWidget {
   final String title;
@@ -101,7 +102,21 @@ class CardView extends StatelessWidget {
                       ),
                     ),
                   ),
-                 
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder:(context) {
+                          return CommentsView(title: title, courseId: docId);
+                        },),
+                      );
+                    },
+                    child: const Text(
+                      "See the comments for this course",
+                      style: TextStyle(color: Colors.black87, fontSize: 15),
+                    ),
+                  ),
+                  const Text("You have to enroll in this course to comment."),
                 ],
               ),
             ),

@@ -5,8 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
 import 'package:learner_app/views/profile/change_username_form.dart';
-import 'package:learner_app/views/profile/created_courses.dart';
-import 'package:learner_app/views/profile/enrolled_courses.dart';
+import 'package:learner_app/views/profile/created%20courses/created_courses.dart';
+import 'package:learner_app/views/profile/enrolled%20courses/enrolled_courses.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -48,7 +48,7 @@ class ProfileView extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return ChangeUsernameForm();
+                        return ChangeUsernameForm(username: username,);
                       },
                     );
                   },
