@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, avoid_function_literals_in_foreach_calls, unused_element
 
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -62,11 +63,13 @@ class DatabaseService {
   }
 
   Future<void> createUser(String uid, String email, String username) async {
+    int color = Random().nextInt(6);
     await users.doc(uid).set({
       "username": username,
       "email": email,
       "enrolledCourses": [],
       "createdCourses": [],
+      "color": color,
     });
   }
 
@@ -143,6 +146,17 @@ class DatabaseService {
       "content": newComment
     });
   }
-  
+  Future<void> deleteComment (String commentId, String courseId) async {
+    await courses.doc(courseId).update({
+      "comments": FieldValue.arrayRemove([commentId]),
+    });
+    await comments.doc(commentId).delete();
+  }
+
+  Future<void> changeColor (int newColorIndex) async {
+    await users.doc(uid).update({
+      "color": newColorIndex
+    });
+  }
 
 }

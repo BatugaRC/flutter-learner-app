@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/utilities/random_color.dart';
 
 class CommentBox extends StatelessWidget {
   final String commentId;
   final String commenter;
   final String content;
+  final Color color;
   const CommentBox(
       {super.key,
       required this.commenter,
       required this.content,
-      required this.commentId});
+      required this.commentId, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    Color color = getRandomColor();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/utilities/random_color.dart';
 
 class StudentTile extends StatelessWidget {
   final String? username;
   final String? email;
-  const StudentTile({super.key, required this.username, required this.email});
+  final Color color;
+  const StudentTile({super.key, required this.username, required this.email, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    Color color = getRandomColor();
     return ListTile(
       leading: Container(
         width: 50,

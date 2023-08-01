@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
-import 'package:learner_app/views/profile/student_list.dart';
+import 'package:learner_app/views/profile/created%20courses/student_list.dart';
 import 'update_form.dart';
 
 class CreatedCourseView extends StatelessWidget {

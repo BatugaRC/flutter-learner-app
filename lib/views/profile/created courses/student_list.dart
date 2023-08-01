@@ -3,7 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
-import 'package:learner_app/views/profile/student_tile.dart';
+import 'package:learner_app/utilities/get_color.dart';
+import 'package:learner_app/views/profile/created%20courses/student_tile.dart';
 
 class StudentList extends StatelessWidget {
   String? docId;
@@ -36,7 +37,9 @@ class StudentList extends StatelessWidget {
                   final data = snapshot.data;
                   String? username = data?["username"];
                   String? email = data?["email"];
-                  return StudentTile(username: username, email: email);
+                  int colorIndex = data?["color"];
+                  Color color = getColor(colorIndex);
+                  return StudentTile(username: username, email: email, color: color);
                   
                 },
               );

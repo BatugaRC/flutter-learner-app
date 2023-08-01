@@ -4,9 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learner_app/services/database.dart';
+import 'package:learner_app/utilities/get_color.dart';
 import 'package:learner_app/views/profile/change_username_form.dart';
 import 'package:learner_app/views/profile/created%20courses/created_courses.dart';
 import 'package:learner_app/views/profile/enrolled%20courses/enrolled_courses.dart';
+
+import 'color_picker.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -33,13 +36,46 @@ class ProfileView extends StatelessWidget {
         final String email = data["email"];
         List<dynamic> enrolledCourses = data["enrolledCourses"];
         List<dynamic> createdCourses = data["createdCourses"];
+        int colorIndex = data["color"];
+        Color color = getColor(colorIndex);
         return Padding(
           padding: const EdgeInsets.fromLTRB(0, 70, 0, 0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(context: context, builder: ((context) {
+                      return ColorPicker();
+                    }));
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: color,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            username[0].toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 36,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               ListTile(
                 title: Text("Username"),
                 subtitle: Text(username),
@@ -48,7 +84,9 @@ class ProfileView extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return ChangeUsernameForm(username: username,);
+                        return ChangeUsernameForm(
+                          username: username,
+                        );
                       },
                     );
                   },
@@ -65,7 +103,7 @@ class ProfileView extends StatelessWidget {
                 subtitle: Text(email),
               ),
               Padding(
-                padding: EdgeInsets.fromLTRB(30, 200, 30, 0),
+                padding: EdgeInsets.fromLTRB(30, 130, 30, 0),
                 child: Row(
                   children: [
                     ElevatedButton(

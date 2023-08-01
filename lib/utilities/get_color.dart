@@ -1,7 +1,6 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
-Color getRandomColor() {
+Color getColor(int index) {
   List<Color> colors = [
     Colors.red,
     Colors.orange,
@@ -11,9 +10,5 @@ Color getRandomColor() {
     Colors.indigo,
     Colors.purple,
   ];
-
-  Random random = Random();
-  int index = random.nextInt(colors.length);
-
   return colors[index];
 }

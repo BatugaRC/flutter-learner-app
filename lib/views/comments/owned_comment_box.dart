@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:learner_app/utilities/random_color.dart';
+import 'package:learner_app/services/database.dart';
 import 'package:learner_app/views/comments/edit_comment.dart';
 
 class OwnedCommentBox extends StatelessWidget {
   final String commentId;
   final String commenter;
   final String content;
+  final String courseId;
+  final Color color;
   const OwnedCommentBox(
       {super.key,
       required this.commenter,
       required this.content,
-      required this.commentId});
+      required this.commentId, required this.courseId, required this.color});
 
   @override
   Widget build(BuildContext context) {
-    Color color = getRandomColor();
+    DatabaseService db = DatabaseService();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -81,7 +83,9 @@ class OwnedCommentBox extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        await db.deleteComment(commentId, courseId);
+                      },
                       icon: const Icon(
                         Icons.delete,
                         color: Colors.red,
