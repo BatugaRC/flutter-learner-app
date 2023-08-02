@@ -22,12 +22,23 @@ class CreatedCourses extends StatelessWidget {
           backgroundColor: Colors.black87,
         ),
         body: Center(
-          child: Text(
-            "You have not created any courses.",
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-            ),
+           child: Column(
+            
+            children: [
+              SizedBox(
+                height: 80,
+              ),
+              Image.network(
+                "https://thenounproject.com/api/private/icons/640550/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0",
+              ),
+              Text(
+                "You have not created any courses.",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
         ),
       );

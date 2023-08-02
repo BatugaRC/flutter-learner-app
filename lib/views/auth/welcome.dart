@@ -10,8 +10,10 @@ class Welcome extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 120.0,
+          Image.network(
+            "https://freepngimg.com/save/166449-college-student-free-hq-image/868x1400",
+            width: 150,
+            height: 300,
           ),
           const Text(
             "Welcome to",
@@ -28,7 +30,7 @@ class Welcome extends StatelessWidget {
                 color: Color.fromARGB(200, 0, 0, 0)),
           ),
           const SizedBox(
-            height: 100.0,
+            height: 80.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

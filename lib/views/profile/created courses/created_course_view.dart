@@ -82,7 +82,7 @@ class CreatedCourseView extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            TextButton(
+            TextButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -95,7 +95,8 @@ class CreatedCourseView extends StatelessWidget {
                 );
               },
               style: TextButton.styleFrom(foregroundColor: Colors.black87),
-              child: const Text("See the students of this course"),
+              label: const Text("See the students of this course"),
+              icon: Icon(Icons.people_alt),
             )
           ],
         ),

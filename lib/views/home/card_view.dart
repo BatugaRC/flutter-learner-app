@@ -57,10 +57,13 @@ class CardView extends StatelessWidget {
             ),
             body: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
                     children: [
+                      const SizedBox(
+                    height: 120,
+                  ),
                       const Text(
                         "This course is created by",
                         style: TextStyle(
@@ -76,6 +79,9 @@ class CardView extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 100,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -102,7 +108,10 @@ class CardView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  TextButton.icon(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -111,10 +120,13 @@ class CardView extends StatelessWidget {
                         },),
                       );
                     },
-                    child: const Text(
+                    label: const Text(
                       "See the comments for this course",
                       style: TextStyle(color: Colors.black87, fontSize: 15),
-                    ),
+                    ), icon: const Icon(Icons.comment, color: Colors.black87,),
+                  ),
+                  const SizedBox(
+                    height: 100,
                   ),
                   const Text("You have to enroll in this course to comment."),
                 ],

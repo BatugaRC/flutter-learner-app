@@ -23,6 +23,32 @@ class CommentList extends StatelessWidget {
           }
           final data = snapshot.data;
           List<dynamic> commentIds = data?["comments"];
+          if (commentIds.isEmpty) {
+            return Center(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 200,
+                  ),
+                  Image.network(
+                    "https://www.pngmart.com/files/20/Talking-Comment-PNG-Image.png",
+                    height: 200,
+                    width: 200,
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  const Text(
+                    "There are no any comments on this course.",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
 
           return ListView.builder(
             itemCount: commentIds.length,
@@ -45,11 +71,21 @@ class CommentList extends StatelessWidget {
                       }
                       final commenter = snapshot.data?["username"];
                       final int colorIndex = snapshot.data?["color"];
-                      final Color color = getColor(colorIndex); 
-                      if (commenterId == FirebaseAuth.instance.currentUser!.uid) {
-                      return OwnedCommentBox(commenter: commenter, content: content, commentId: commentId, courseId: courseId, color: color);
+                      final Color color = getColor(colorIndex);
+                      if (commenterId ==
+                          FirebaseAuth.instance.currentUser!.uid) {
+                        return OwnedCommentBox(
+                            commenter: commenter,
+                            content: content,
+                            commentId: commentId,
+                            courseId: courseId,
+                            color: color);
                       } else {
-                        return CommentBox(commenter: commenter, content: content, commentId: commentId, color: color);
+                        return CommentBox(
+                            commenter: commenter,
+                            content: content,
+                            commentId: commentId,
+                            color: color);
                       }
                     },
                   );

@@ -46,34 +46,46 @@ class ProfileView extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(context: context, builder: ((context) {
-                      return ColorPicker();
-                    }));
-                  },
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: color,
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            username[0].toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 36,
-                              color: Colors.white,
-                            ),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(context: context, builder: ((context) {
+                          return ColorPicker();
+                        }));
+                      },
+                      child: Container(
+                        width: 60,
+                        height: 60,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: color,
+                        ),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                username[0].toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 36,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 250,
+                    ),
+                    Image.network(
+                      "https://www.transparentpng.com/thumb/user/gray-user-profile-icon-png-fP8Q1P.png",
+                      height: 50,
+                      width: 50,
+                    )
+                  ],
                 ),
               ),
               ListTile(

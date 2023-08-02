@@ -24,23 +24,44 @@ class StudentList extends StatelessWidget {
         builder: (context, snapshot) {
           final data = snapshot.data;
           List<dynamic>? students = data?["students"];
+          if (students!.isEmpty) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.network(
+                  "https://www.freepnglogos.com/uploads/student-png/student-png-algebra-nation-30.png",
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                const Text(
+                  "There are no any students enrolled in this course.",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ));
+          }
           return ListView.builder(
-            itemCount: students?.length,
+            itemCount: students.length,
             itemBuilder: (context, index) {
-              final String? uid = students?[index];
+              final String? uid = students[index];
               return FutureBuilder(
                 future: db.getUser(uid!),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return const CircularProgressIndicator();
-                  } 
+                  }
                   final data = snapshot.data;
                   String? username = data?["username"];
                   String? email = data?["email"];
                   int colorIndex = data?["color"];
                   Color color = getColor(colorIndex);
-                  return StudentTile(username: username, email: email, color: color);
-                  
+                  return StudentTile(
+                      username: username, email: email, color: color);
                 },
               );
             },
